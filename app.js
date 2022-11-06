@@ -89,16 +89,18 @@ const onFileChange = (event) => {
   };
 };
 
-const onDoubleClick = (event) => {
-  const text = TEXTINPUT.value;
-  if (text !== "") {
-    ctx.save(); // ctx 현재상태 저장
-    ctx.lineWidth = 1;
-    ctx.font = "48px serif";
-    ctx.fillText(text, event.offsetX, event.offsetY);
-    ctx.restore(); // ctx 저장한 상태로 되돌림
-  }
-};
+// 현재 더블클릭 후 오류 발생 -> 문제 해결 중
+
+// const onDoubleClick = (event) => {
+//   const text = TEXTINPUT.value;
+//   if (text.trim().length > 0) {
+//     ctx.save(); // ctx 현재상태 저장
+//     ctx.lineWidth = 1;
+//     ctx.font = "48px serif";
+//     ctx.fillText(text, event.offsetX, event.offsetY);
+//     ctx.restore(); // ctx 저장한 상태로 되돌림
+//   }
+// };
 
 const onSaveClick = () => {
   const url = canvas.toDataURL();
@@ -108,7 +110,7 @@ const onSaveClick = () => {
   a.click();
 };
 
-canvas.addEventListener("dblclick", onDoubleClick);
+// canvas.addEventListener("dblclick", onDoubleClick);
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
