@@ -1,3 +1,4 @@
+const SAVEBTN = document.getElementById("save");
 const TEXTINPUT = document.getElementById("text");
 const FILEINPUT = document.getElementById("file");
 const MODEBTN = document.getElementById("mode-btn");
@@ -15,7 +16,7 @@ const CANVAS_HEIGHT = 800;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 ctx.lineWidth = LINEWIDTH.value;
-ctx.lineCap = "round"
+ctx.lineCap = "round";
 let isPainting = false;
 let isFilling = false;
 
@@ -99,6 +100,14 @@ const onDoubleClick = (event) => {
   }
 };
 
+const onSaveClick = () => {
+  const url = canvas.toDataURL();
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "myDrawing.png";
+  a.click();
+};
+
 canvas.addEventListener("dblclick", onDoubleClick);
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
@@ -113,3 +122,4 @@ MODEBTN.addEventListener("click", onModeClick);
 DESTROYBTN.addEventListener("click", onDestroyClick);
 ERASERBTN.addEventListener("click", onEraserClick);
 FILEINPUT.addEventListener("change", onFileChange);
+SAVEBTN.addEventListener("click", onSaveClick);
