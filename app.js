@@ -1,3 +1,4 @@
+const MODEBTN = document.getElementById("mode-btn");
 const COLOROPTION = Array.from(document.getElementsByClassName("color-option"));
 const COLOR = document.querySelector("#color");
 const LINEWIDTH = document.querySelector("#line-width");
@@ -8,6 +9,8 @@ canvas.width = 800;
 canvas.height = 800;
 ctx.lineWidth = LINEWIDTH.value;
 let isPainting = false;
+let isFilling = false;
+
 const onMove = (event) => {
   if (isPainting) {
     ctx.lineTo(event.offsetX, event.offsetY);
@@ -39,11 +42,30 @@ const onColorClick = (event) => {
   COLOR.value = colorValue;
 };
 
+const onModeClick = (event) => {
+  if (isFilling) {
+    isFilling = false;
+    MODEBTN.innerText = "채우기";
+  } else {
+    isFilling = true;
+    MODEBTN.innerText = "그리기";
+  }
+};
+
+const onCanvasClick = () => {
+  if (isFilling) {
+    ctx.fillRect(0, 0, 800, 800);
+
+  }
+};
+
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting);
+canvas.addEventListener("click", onCanvasClick);
 LINEWIDTH.addEventListener("change", onLineWidthChange);
 COLOR.addEventListener("change", onColorChange);
 
 COLOROPTION.forEach((color) => color.addEventListener("click", onColorClick));
+MODEBTN.addEventListener("click", onModeClick);
