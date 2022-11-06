@@ -1,3 +1,4 @@
+const FILEINPUT = document.getElementById("file");
 const MODEBTN = document.getElementById("mode-btn");
 const DESTROYBTN = document.getElementById("destroy-btn");
 const ERASERBTN = document.getElementById("eraser-btn");
@@ -74,6 +75,17 @@ const onEraserClick = () => {
   MODEBTN.innerText = "채우기";
 };
 
+const onFileChange = (event) => {
+  const file = event.target.files[0];
+  const url = URL.createObjectURL(file);
+  const image = new Image();
+  image.src = url;
+  image.onload = () => {
+    ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    FILEINPUT.value = null;
+  };
+};
+
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
@@ -86,3 +98,4 @@ COLOROPTION.forEach((color) => color.addEventListener("click", onColorClick));
 MODEBTN.addEventListener("click", onModeClick);
 DESTROYBTN.addEventListener("click", onDestroyClick);
 ERASERBTN.addEventListener("click", onEraserClick);
+FILEINPUT.addEventListener("change", onFileChange);
